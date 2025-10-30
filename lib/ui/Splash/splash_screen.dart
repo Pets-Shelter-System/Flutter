@@ -25,42 +25,41 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 4),
+      duration: const Duration(seconds: 3),
     );
 
-    // Scale: grow then shrink
     _scaleAnimation = TweenSequence([
-      TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.2).chain(CurveTween(curve: Curves.easeOutBack)), weight: 70),
-      TweenSequenceItem(tween: Tween(begin: 1.2, end: 0.8).chain(CurveTween(curve: Curves.easeIn)), weight: 30),
+      TweenSequenceItem(
+        tween: Tween(begin: 0.0, end: 1.2)
+            .chain(CurveTween(curve: Curves.easeOutBack)),
+        weight: 70,
+      ),
+      TweenSequenceItem(
+        tween: Tween(begin: 1.2, end: 0.9)
+            .chain(CurveTween(curve: Curves.easeIn)),
+        weight: 30,
+      ),
     ]).animate(_controller);
 
-    // Fade: fade in then fade out slightly
     _fadeAnimation = TweenSequence([
       TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 70),
-      TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.8), weight: 30),
+      TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 30),
     ]).animate(_controller);
 
     _controller.forward();
-
-    // Navigate after animation completes
-    _controller.addStatusListener((status) {
+    _controller.addStatusListener((status) async {
       if (status == AnimationStatus.completed) {
-        _navigateToNextScreen();
+        if (mounted) {
+          _navigateToNextScreen();
+        }
       }
     });
   }
 
   void _navigateToNextScreen() {
-    Navigator.of(context).pushReplacement(PageRouteBuilder(
-      transitionDuration: const Duration(seconds: 1),
-      pageBuilder: (_, __, ___) => const RegisterScreen(),
-      transitionsBuilder: (_, animation, __, child) {
-        return FadeTransition(
-          opacity: animation,
-          child: child,
-        );
-      },
-    ));
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) => const RegisterScreen()),
+    );
   }
 
   @override
