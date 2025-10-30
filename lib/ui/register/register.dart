@@ -55,6 +55,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: AppColors.primaryColor,
+                          fontFamily: GoogleFonts.poppins().fontFamily
                       ),
                     ),
                     SizedBox(height: 12,),
@@ -164,11 +165,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(width: 12),
-                                Text("Sign Up", style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text("Sign Up", style: TextStyle(
+                                    color: Color(0xFFF4F4F4),
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w500,
+                                  ),),
+                                ),
                               ],
                             )
                           ),
