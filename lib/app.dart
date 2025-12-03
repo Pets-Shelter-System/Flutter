@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pets_shelter_system/features/home/presentation/pages/home_page.dart';
 import 'package:pets_shelter_system/routes.dart';
 import 'package:pets_shelter_system/shared/theme/app_theme.dart';
 import 'package:pets_shelter_system/features/auth/presentation/pages/splash_screen.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         AppRoutes.registerScreen.name: (context) => const RegisterPage(),
         AppRoutes.loginScreen.name: (context) => const LoginPage(),
         AppRoutes.splashScreen.name: (context) => const SplashScreen(),
+        AppRoutes.homeScreen.name :(context) => const HomePage(),
       },
 
       debugShowCheckedModeBanner: false,

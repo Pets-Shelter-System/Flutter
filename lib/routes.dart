@@ -3,4 +3,5 @@ enum AppRoutes {
   registerScreen,
   loginScreen,
   splashScreen,
+  homeScreen,
 }
