@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pets_shelter_system/core/token_storage.dart';
 import 'package:pets_shelter_system/shared/theme/app_theme.dart';
 import 'package:pets_shelter_system/routes.dart';
 
@@ -20,7 +21,6 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    // Hide system UI
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
     _controller = AnimationController(
@@ -50,16 +50,28 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.addStatusListener((status) async {
       if (status == AnimationStatus.completed) {
         if (mounted) {
-          _navigateToNextScreen();
+          await _navigateToNextScreen();
         }
       }
     });
   }
 
-  void _navigateToNextScreen() {
-    Navigator.of(context).pushReplacementNamed(
-      AppRoutes.registerScreen.name,
-    );
+  Future<void> _navigateToNextScreen() async {
+    final token = await TokenStorage.getToken();
+
+    if (!mounted) return;
+
+    if (token != null && token.isNotEmpty) {
+      // User logged in before -> go directly to home
+      Navigator.of(context).pushReplacementNamed(
+        AppRoutes.homeScreen.name,
+      );
+    } else {
+      // No token -> go to login (from there he can go to register)
+      Navigator.of(context).pushReplacementNamed(
+        AppRoutes.loginScreen.name,
+      );
+    }
   }
 
   @override

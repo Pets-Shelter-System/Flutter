@@ -61,10 +61,8 @@ class AuthRepositoryImpl implements AuthRepository {
       if (response.statusCode == 200) {
         if (response.data is Map<String, dynamic>) {
           final data = response.data as Map<String, dynamic>;
-          final token = (data['token'] ??
-              data['accessToken'] ??
-              data['jwt'])
-              ?.toString();
+
+          final token = data['token']?.toString();
 
           if (token != null && token.isNotEmpty) {
             await TokenStorage.saveToken(token);
@@ -82,6 +80,8 @@ class AuthRepositoryImpl implements AuthRepository {
       throw Exception('Login failed: $e');
     }
   }
+
+
 
   String _extractErrorMessage(Response response) {
     try {

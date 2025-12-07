@@ -25,7 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
+  final TextEditingController userName = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -40,7 +40,7 @@ class _RegisterPageState extends State<RegisterPage> {
   void dispose() {
     firstNameController.dispose();
     lastNameController.dispose();
-    nameController.dispose();
+    userName.dispose();
     emailController.dispose();
     phoneController.dispose();
     passwordController.dispose();
@@ -72,12 +72,6 @@ class _RegisterPageState extends State<RegisterPage> {
           final isLoading = state is AuthLoading;
 
           return Scaffold(
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                testNetwork();
-              },
-              child: const Icon(Icons.wifi),
-            ),
             body: SingleChildScrollView(
               padding: const EdgeInsets.only(bottom: 24),
               child: Column(
@@ -147,8 +141,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                   ),
                                 ),
                                 AppFormField(
-                                  controller: nameController,
-                                  label: "Name",
+                                  controller: userName,
+                                  label: "Username",
                                   icon: Icons.person,
                                   keyboardType: TextInputType.name,
                                   validator: (text) => validateName(
@@ -216,7 +210,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       lastNameController.text
                                           .trim(),
                                       username:
-                                      nameController.text
+                                      userName.text
                                           .trim(),
                                       email: emailController.text
                                           .trim(),
